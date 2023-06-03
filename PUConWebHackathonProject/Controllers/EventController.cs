@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PUConWebHackathonProject.Models;
+using PUConWebHackathonProject.Models.IRepositories;
 using System.ComponentModel;
 
 namespace PUConWebHackathonProject.Controllers
 {
     public class EventController : Controller
     {
+        private IEventsRepository<EventModel> _ieventrepo;
+        public EventController(IEventsRepository<EventModel> eventsRepository) { 
+            _ieventrepo = eventsRepository;
+        }
         [Authorize]
         public IActionResult CreateEvent()
         {
@@ -33,6 +38,11 @@ namespace PUConWebHackathonProject.Controllers
             };
 
 
+            return View();
+        }
+        public IActionResult EventsList()
+        {
+            ViewBag.EvetList = _ieventrepo.GetAll().ToList();
             return View();
         }
     }
