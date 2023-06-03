@@ -1,20 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PUConWebHackathonProject.Models;
+using PUConWebHackathonProject.Models.IRepositories;
 using System.ComponentModel;
+using System.IO;
 
 namespace PUConWebHackathonProject.Controllers
 {
     public class EventController : Controller
     {
+        private readonly IEventsRepository<EventModel> _eventsRepository;
+        public EventController(IEventsRepository<EventModel> eventsRepository)
+        {
+            _eventsRepository = eventsRepository;
+        }
         [Authorize]
         public IActionResult CreateEvent()
         {
             return View();
         }
 
-        [HttpPost]   
-        public IActionResult CreateEvent(EventModel eventModel)
+        [HttpPost]
+        public async Task<IActionResult> CreateEvent(EventModel eventModel)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", eventModel.PosterPicture.FileName);
             var extension = Path.GetExtension(eventModel.PosterPicture.FileName);
@@ -29,11 +37,20 @@ namespace PUConWebHackathonProject.Controllers
                 Time_Db = eventModel.Time.ToString(),
                 Duration = eventModel.Duration,
                 PosterPicturePath = dbPath,
-                Category= eventModel.Category,
+                Category = eventModel.Category,
             };
-
+            var result = await _eventsRepository.Add(newEvent);
+            if (result >= 1)
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    eventModel.PosterPicture.CopyTo(stream);
+                }
+                System.IO.File.Move(path, dbPath, true);
+            }
 
             return View();
+
         }
     }
 }
