@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@for(int i=0; i<ViewBag.EventsList.Count; i++)
+{
+    <section class="blog-section spad mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="blog-item set-bg" data-setbg="@ViewBag.EventsList.PosterPicturePath">
+                                <div class="bi-tag bg-gradient">@ViewBag.EventsList.Title</div>
+                                <div class="bi-text">
+                                    <h5><a href="./blog-details.html"></a>@ViewBag.EventsList.Description</h5>
+                                    <span><i class="fa fa-clock-o"></i> @ViewBag.EventsList.Date_Db</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

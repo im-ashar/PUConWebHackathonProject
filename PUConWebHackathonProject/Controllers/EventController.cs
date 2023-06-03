@@ -10,11 +10,6 @@ namespace PUConWebHackathonProject.Controllers
 {
     public class EventController : Controller
     {
-        private readonly IEventsRepository<EventModel> _eventsRepository;
-        public EventController(IEventsRepository<EventModel> eventsRepository)
-        {
-            _eventsRepository = eventsRepository;
-        }
         [Authorize]
         public IActionResult CreateEvent()
         {
@@ -51,6 +46,11 @@ namespace PUConWebHackathonProject.Controllers
 
             return View();
 
+        }
+        public IActionResult EventsList()
+        {
+            ViewBag.EvetList = _ieventrepo.GetAll().ToList();
+            return View();
         }
     }
 }
