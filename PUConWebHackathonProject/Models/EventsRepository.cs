@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PUConWebHackathonProject.Models.IRepositories;
+using PUConWebHackathonProject.Models.Repositories.Identity;
 
 namespace PUConWebHackathonProject.Models
 {
     public class EventsRepository<T> : IEventsRepository<T> where T : class
     {
-        private readonly EventsContext _context;
+        private readonly IdentityContext _context;
 
-        public EventsRepository(EventsContext context)
+        public EventsRepository(IdentityContext context)
         {
             _context = context;
         }
 
-        public T GetById(int id)
+        public T GetById(Guid id)
         {
             return _context.Set<T>().Find(id);
         }

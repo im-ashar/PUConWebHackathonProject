@@ -1,5 +1,7 @@
 ﻿@model List<EventModel>
-
+@{
+    ViewData["Title"] = "Events By User";
+}
 <div class="d-flex flex-wrap m-3">
 
 
@@ -12,7 +14,8 @@
             <div class="card-body">
                 <h5 class="card-title">@eve.Title</h5>
                 <p class="card-text">@eve.Description</p>
-                <a href="#" class="btn btn-primary">Join</a>
+                <a asp-action="EditEvent" asp-controller="Event" asp-route-eventId="@eve.Id" class="btn btn-primary">Edit</a>
+                <a asp-action="DeleteEvent" asp-controller="Event" asp-route-eventId="@eve.Id" class="btn btn-danger">Delete</a>
             </div>
         </div>
 

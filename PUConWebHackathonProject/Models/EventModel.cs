@@ -17,13 +17,13 @@ namespace PUConWebHackathonProject.Models
         [NotMapped]
         [Required(ErrorMessage = "Date Is Required")]
         [DataType(DataType.Date)]
-        public DateOnly Date { get; set; }
+        public DateOnly? Date { get; set; }
         public string Date_Db { get; set; }
 
         [NotMapped]
         [Required(ErrorMessage = "Time Is Required")]
         [DataType(DataType.Time)]
-        public TimeOnly Time { get; set; }
+        public TimeOnly? Time { get; set; }
         public string Time_Db { get; set; }
 
         [Required(ErrorMessage = "Duration Is Required")]
@@ -37,5 +37,6 @@ namespace PUConWebHackathonProject.Models
         [DataType(DataType.Upload)]
         public IFormFile PosterPicture { get; set; }
         public string PosterPicturePath { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

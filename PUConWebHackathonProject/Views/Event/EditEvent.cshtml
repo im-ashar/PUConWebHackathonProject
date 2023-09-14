@@ -1,6 +1,6 @@
-﻿@model EventModel
+﻿@model EventEditModel
 @{
-    ViewData["Title"] = "Create Event";
+    ViewData["Title"] = "Edit Event";
 }
 <section>
     <div class="container h-100">
@@ -15,8 +15,16 @@
 
                                 <div asp-validation-summary="All" class="text-danger"></div>
 
-                                <form action="~/Event/CreateEvent" method="post" class="mx-1 mx-md-4" EncType="multipart/form-data">
+                                <form action="~/Event/EditEvent" method="post" class="mx-1 mx-md-4" EncType="multipart/form-data">
 
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fa-solid fa-heart fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label asp-for="Id" class="form-label">Id</label>
+                                            <input readonly asp-for="Id" value="@ViewBag.EventId" class="form-control" />
+                                            <span asp-validation-for="Id" class="text-danger"></span>
+                                        </div>
+                                    </div>
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fa-solid fa-heart fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">

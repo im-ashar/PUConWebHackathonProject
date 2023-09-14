@@ -12,8 +12,7 @@ var migrationAssembly = typeof(Program).Assembly.GetName().Name;
 
 builder.Services.AddDbContext<IdentityContext>(options =>
 options.UseSqlServer(connString, sql => sql.MigrationsAssembly(migrationAssembly)));
-builder.Services.AddDbContext<EventsContext>(options => 
-options.UseSqlServer(connString, sql => sql.MigrationsAssembly(migrationAssembly)));
+
 
 
 
@@ -29,10 +28,9 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 
 var migIdentityContext = scope.ServiceProvider.GetRequiredService<IdentityContext>();
-migIdentityContext.Database.MigrateAsync().Wait();
+await migIdentityContext.Database.MigrateAsync();
 
-var migEventsContext = scope.ServiceProvider.GetRequiredService<EventsContext>();
-migEventsContext.Database.MigrateAsync().Wait();
+
 
 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 

@@ -5,15 +5,12 @@ namespace PUConWebHackathonProject.Models.Repositories.Identity
 {
     public class IdentityContext : IdentityDbContext<IdentityModel>
     {
+        public DbSet<EventModel> Events { get; set; }
+
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }
